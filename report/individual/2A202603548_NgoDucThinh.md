@@ -1,10 +1,9 @@
 # Báo cáo cá nhân — Day 01: Lọc tin nhắn rác bằng ML, DL, Embedding và LLM
 
-> Đổi tên file này thành `MSSV_HoTen.md` của bạn, ví dụ `2A20260000_NguyenVanAn.md`, rồi điền từng mục. Xoá các dòng hướng dẫn in nghiêng khi xong.
 
 - **MSSV:2A202603548**
 - **Họ và tên:Ngô Đức Thịnh**
-- **SEED = 1947** (in ở ô đầu notebook):
+- **SEED = 1947** 
 
 ## 1. Bằng chứng
 
@@ -16,7 +15,6 @@
 
 ## 2. Kết quả chính
 
-*Chép bảng so sánh cuối Phần 5 (F1 test, F1 SUB 40, p95 ms/tin, USD/1k tin) của chính bạn.*
 1. BoW + LogReg (tự code)            0.989   0.784      0.874        0.889   
 2. BoW + MLP (deep learning)         0.980   0.874      0.924        0.919   
 3a. Encoder (MiniLM) + kNN           0.904   0.928      0.916        0.947   
