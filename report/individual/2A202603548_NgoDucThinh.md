@@ -50,7 +50,6 @@
 
 ## 4. Phân tích 50 case khó
 
-*Model nào tụt nhiều nhất, ở nhóm case nào? Nêu 2 case cụ thể và cơ chế khiến model sai.*
 Model tụt nhiều nhất và ở nhóm case nào:
 Model tụt nhiều nhất: Các mô hình truyền thống dựa trên đặc trưng Bag-of-Words (BoW + LogReg hoặc BoW + MLP). Tổng độ chính xác của chúng sụt giảm nghiêm trọng, chỉ còn khoảng 50% - 52% trên 50 case khó.
 
@@ -67,7 +66,6 @@ Cơ chế sai: Mô hình BoW tách rời câu thành các từ đơn lẻ và b�
 
 ## 5. Thử thách cá nhân
 
-*Đề theo SEED của bạn, cách làm, kết quả, giải thích.*
 ML · Đổi ngưỡng quyết định 0.5 → 0.2 và → 0.8 cho mô hình Phần 1
 Khi ngưỡng là 0.2: Mô hình sẽ dễ dàng gán nhãn là spam hơn. Điều này dẫn đến việc Recall tăng (ít bỏ sót spam hơn) nhưng Precision giảm mạnh (nhiều tin ham bị gán nhãn nhầm thành spam). F1 thường sẽ giảm do sự sụt giảm lớn của Precision.  
 Khi ngưỡng là 0.8: Mô hình trở nên khắt khe hơn khi phân loại spam. Precision sẽ tăng (những tin bị gán nhãn spam có khả năng rất cao là spam thật), nhưng Recall giảm mạnh (nhiều tin spam bị bỏ sót).  
@@ -82,7 +80,6 @@ Khi nào nên chọn mạng nhỏ: Khi tài nguyên tính toán (như RAM, CPU) 
 
 ## 6. Phương án cho sản phẩm thật
 
-*Với yêu cầu p95 < 50 ms/tin cho 10 triệu SMS/ngày: chọn phương án nào, dẫn số liệu nào, chấp nhận đánh đổi gì.*
 Lựa chọn mô hình: Embedding + Logistic Regression (hoặc MLP head).
 
 Dẫn chứng số liệu:
@@ -97,7 +94,6 @@ Về chi phí: Chạy cục bộ tốn $0, trong khi LLM tốn hàng nghìn USD/
 
 ## 7. AI log và điều đã học
 
-*Mỗi lần dùng AI: hỏi gì, nhận gì, bạn sửa gì. Sau đó 2–3 câu: điều bạn hiểu ra hôm nay mà trước đó chưa hiểu.*
 AI Log:
 
 Hỏi: Lỗi hệ thống treo 50 phút không chạy xong phần 4a/4b, và lỗi 429 RateLimitError của Gemini Free Tier.
