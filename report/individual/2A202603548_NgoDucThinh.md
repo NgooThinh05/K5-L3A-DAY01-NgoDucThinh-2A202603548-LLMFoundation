@@ -15,11 +15,38 @@
 
 ## 2. Kết quả chính
 
-Bảng 1: Các chỉ số phân loại (Chất lượng mô hình)Mô hìnhChỉ số 1Chỉ số 2Chỉ số 3Chỉ số 4 (F1)1. BoW + LogReg (tự code)0.9890.7840.8740.8892. BoW + MLP (deep learning)0.9800.8740.9240.9193a. Encoder (MiniLM) + kNN0.9040.9280.9160.9473b. Encoder (MiniLM) + LogReg0.9810.9190.9490.9473c. Encoder (MiniLM) + MLP head0.9810.9190.9490.9474a. LLM nhỏ zero-shot1.0000.9500.9740.9744b. LLM lớn zero-shot1.0000.9500.9740.9744c. LLM nhỏ few-shot1.0000.9000.9470.947Bảng 2: Các chỉ số hiệu năng (Tốc độ & Chi phí)Mô hìnhTrain (s)Tin/s (cả lô)p50 ms/tinp95 ms/tinUSD / 1k tin1. BoW + LogReg4.39418,098.120.0570.108$0.0002. BoW + MLP10.60026,020.050.3052.555$0.0003a. Encoder + kNN100.14129.1551.69170.433$0.0003b. Encoder + LogReg100.61446.0329.53446.631$0.0003c. Encoder + MLP head101.65344.3428.07136.779$0.0004a. LLM nhỏ zero-shot0.0001.53565.8771239.503$0.0194b. LLM lớn zero-shot0.0001.45526.0761424.687$0.0444c. LLM nhỏ few-shot0.0001.34516.8592097.892$0.058📝 Lưu ý kỹ thuật:Hàng LLM chỉ đo trên SUB (40 tin) → so sánh chất lượng công bằng bằng cột 'F1 (SUB 40)'.SUB chỉ có 40 tin: 1 tin sai làm F1 đổi vài điểm. Mức chênh lệch < ~0.05 F1 coi như HOÀ — không nên xếp hạng theo số lẻ.Inference được đo từ VĂN BẢN THÔ → NHÃN (bao gồm cả quá trình vectorize/encode). p50/p95 tương đương gọi từng tin một như một request thật trên thực tế.train (s) của 3a/3b/3c = thời gian encoder MiniLM encode tập train (+ thời gian train đầu LogReg/MLP). LLM = 0 vì không cần train. Số đo phụ thuộc vào CPU/GPU của Google Colab.
+**Bảng 1: Các chỉ số phân loại (Chất lượng mô hình)**
+
+| Mô hình | Chỉ số 1 | Chỉ số 2 | Chỉ số 3 | Chỉ số 4 (F1) |
+| :--- | :---: | :---: | :---: | :---: |
+| **1. BoW + LogReg** (tự code) | 0.989 | 0.784 | 0.874 | 0.889 |
+| **2. BoW + MLP** (deep learning) | 0.980 | 0.874 | 0.924 | 0.919 |
+| **3a. Encoder (MiniLM) + kNN** | 0.904 | 0.928 | 0.916 | 0.947 |
+| **3b. Encoder (MiniLM) + LogReg** | 0.981 | 0.919 | 0.949 | 0.947 |
+| **3c. Encoder (MiniLM) + MLP head** | 0.981 | 0.919 | 0.949 | 0.947 |
+| **4a. LLM nhỏ zero-shot** | 1.000 | 0.950 | 0.974 | 0.974 |
+| **4b. LLM lớn zero-shot** | 1.000 | 0.950 | 0.974 | 0.974 |
+| **4c. LLM nhỏ few-shot** | 1.000 | 0.900 | 0.947 | 0.947 |
+
+**Bảng 2: Các chỉ số hiệu năng (Tốc độ & Chi phí)**
+
+| Mô hình | Train (s) | Tin/s (cả lô) | p50 ms/tin | p95 ms/tin | USD / 1k tin |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **1. BoW + LogReg** | 4.394 | 18,098.12 | 0.057 | 0.108 | $0.000 |
+| **2. BoW + MLP** | 10.600 | 26,020.05 | 0.305 | 2.555 | $0.000 |
+| **3a. Encoder + kNN** | 100.141 | 29.15 | 51.691 | 70.433 | $0.000 |
+| **3b. Encoder + LogReg** | 100.614 | 46.03 | 29.534 | 46.631 | $0.000 |
+| **3c. Encoder + MLP head** | 101.653 | 44.34 | 28.071 | 36.779 | $0.000 |
+| **4a. LLM nhỏ zero-shot** | 0.000 | 1.53 | 565.877 | 1239.503 | $0.019 |
+| **4b. LLM lớn zero-shot** | 0.000 | 1.45 | 526.076 | 1424.687 | $0.044 |
+| **4c. LLM nhỏ few-shot** | 0.000 | 1.34 | 516.859 | 2097.892 | $0.058 |
 
 ## 3. Dự đoán và thực tế
 
-*Chọn 3 dự đoán `predict(...)` lệch nhiều nhất so với kết quả. Mỗi cái: bạn đoán gì, ra gì, vì sao lệch.*
+**1. Dự đoán lệch nhất: Sức chịu đựng của BoW trên tập 50 case khó (hard_eval)**
+* **Đoán:** Mô hình Bag-of-Words (BoW) sẽ đạt độ chính xác tương đối, khoảng ~55% F1.
+* **Thực tế:** F1 sụt giảm nghiêm trọng, chỉ còn 33% - 36%.
+* **Vì sao lệch:** Đã đánh giá thấp sức tàn phá của các nhóm case khó. Không lường trước được việc mô hình BoW sẽ bị "mù" và sụp đổ hoàn toàn khi gặp các thủ thuật né từ khóa (chèn ký tự lạ) hoặc khi gặp các cụm từ không có trong từ điển gốc.
 
 ## 4. Phân tích 50 case khó
 
