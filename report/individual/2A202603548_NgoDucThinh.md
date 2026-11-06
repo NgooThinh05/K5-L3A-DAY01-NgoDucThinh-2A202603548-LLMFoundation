@@ -15,34 +15,9 @@
 
 ## 2. Kết quả chính
 
-1. BoW + LogReg (tự code)            0.989   0.784      0.874        0.889   
-2. BoW + MLP (deep learning)         0.980   0.874      0.924        0.919   
-3a. Encoder (MiniLM) + kNN           0.904   0.928      0.916        0.947   
-3b. Encoder (MiniLM) + LogReg        0.981   0.919      0.949        0.947   
-3c. Encoder (MiniLM) + MLP head      0.981   0.919      0.949        0.947   
-4a. LLM nhỏ zero-shot                1.000   0.950      0.974        0.974   
-4b. LLM lớn zero-shot                1.000   0.950      0.974        0.974   
-4c. LLM nhỏ few-shot                 1.000   0.900      0.947        0.947   
+Bảng so sánh cuối Phần 5 (F1 test, F1 SUB 40, p95 ms/tin, USD/1k tin)Bảng 1: Các chỉ số phân loại (Chất lượng mô hình)Mô hìnhChỉ số 1Chỉ số 2Chỉ số 3Chỉ số 4 (F1)1. BoW + LogReg (tự code)0.9890.7840.8740.8892. BoW + MLP (deep learning)0.9800.8740.9240.9193a. Encoder (MiniLM) + kNN0.9040.9280.9160.9473b. Encoder (MiniLM) + LogReg0.9810.9190.9490.9473c. Encoder (MiniLM) + MLP head0.9810.9190.9490.9474a. LLM nhỏ zero-shot1.0000.9500.9740.9744b. LLM lớn zero-shot1.0000.9500.9740.9744c. LLM nhỏ few-shot1.0000.9000.9470.947   
 
-                                 train (s)  tin/s (cả lô)  p50 ms/tin  \
-1. BoW + LogReg (tự code)            4.394      18098.117       0.057   
-2. BoW + MLP (deep learning)        10.600      26020.046       0.305   
-3a. Encoder (MiniLM) + kNN         100.141         29.151      51.691   
-3b. Encoder (MiniLM) + LogReg      100.614         46.030      29.534   
-3c. Encoder (MiniLM) + MLP head    101.653         44.337      28.071   
-4a. LLM nhỏ zero-shot                0.000          1.532     565.877   
-4b. LLM lớn zero-shot                0.000          1.450     526.076   
-4c. LLM nhỏ few-shot                 0.000          1.337     516.859   
-
-                                 p95 ms/tin  USD / 1k tin  
-1. BoW + LogReg (tự code)             0.108         0.000  
-2. BoW + MLP (deep learning)          2.555         0.000  
-3a. Encoder (MiniLM) + kNN           70.433         0.000  
-3b. Encoder (MiniLM) + LogReg        46.631         0.000  
-3c. Encoder (MiniLM) + MLP head      36.779         0.000  
-4a. LLM nhỏ zero-shot              1239.503         0.019  
-4b. LLM lớn zero-shot              1424.687         0.044  
-4c. LLM nhỏ few-shot               2097.892         0.058  
+Bảng 2: Các chỉ số hiệu năng (Tốc độ & Chi phí)Mô hìnhTrain (s)Tin/s (cả lô)p50 ms/tinp95 ms/tinUSD / 1k tin1. BoW + LogReg4.39418,098.120.0570.108$0.0002. BoW + MLP10.60026,020.050.3052.555$0.0003a. Encoder + kNN100.14129.1551.69170.433$0.0003b. Encoder + LogReg100.61446.0329.53446.631$0.0003c. Encoder + MLP head101.65344.3428.07136.779$0.0004a. LLM nhỏ zero-shot0.0001.53565.8771239.503$0.0194b. LLM lớn zero-shot0.0001.45526.0761424.687$0.0444c. LLM nhỏ few-shot0.0001.34516.8592097.892$0.058
 • Hàng LLM chỉ đo trên SUB (40 tin) → so sánh chất lượng công bằng bằng cột 'F1 (SUB 40)'.
 • SUB chỉ 40 tin: 1 tin sai đổi F1 vài điểm. Chênh < ~0.05 F1 coi như HOÀ — đừng xếp hạng theo số lẻ.
 • Inference đo TỪ VĂN BẢN THÔ → NHÃN (gồm cả vectorize / encode). p50/p95 = gọi từng tin một, như một request thật.
